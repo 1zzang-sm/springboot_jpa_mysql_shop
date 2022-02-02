@@ -1,12 +1,20 @@
 package com.zzang.shop.domain.member;
 
+import com.zzang.shop.domain.Store;
 import com.zzang.shop.domain.common.Address;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Getter
+@Setter
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +24,9 @@ public class Member {
 
     @Column(name = "user_name", length = 20)
     private String username; // 회원이름
+
+    @Column(name = "user_password", length = 20)
+    private String password;
     @Enumerated(value = EnumType.STRING)
     private Gender gender; // MALE, FEMALE
 
@@ -33,6 +44,9 @@ public class Member {
 
     @Enumerated(value = EnumType.STRING)
     private Role role; // ADMIN, SELLER, CANCEL
+
+    @OneToOne(fetch = LAZY, cascade = ALL)
+    private Store store;
 
     @Embedded
     private Address address;

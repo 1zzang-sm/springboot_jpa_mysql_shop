@@ -1,7 +1,10 @@
 package com.zzang.shop.domain;
 
 import com.zzang.shop.domain.member.Member;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -13,6 +16,8 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Store {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +31,22 @@ public class Store {
     @OneToOne(fetch = LAZY, cascade = ALL)
     private Member member;
 
-    @OneToMany
+    @OneToMany(mappedBy = "store")
     private List<Order> orderList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "store")
     private List<Review> reviewList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "store")
     private List<Product> productList = new ArrayList<>();
+
+    public Store(String storeName, String storeIntroduce) {
+        this.storeName = storeName;
+        this.storeIntroduce = storeIntroduce;
+    }
+
+    public void changeMember(Member member) {
+        this.member = member;
+    }
 
 }
