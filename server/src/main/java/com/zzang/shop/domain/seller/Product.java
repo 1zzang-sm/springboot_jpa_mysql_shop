@@ -1,7 +1,7 @@
-package com.zzang.shop.domain;
+package com.zzang.shop.domain.seller;
 
-import com.zzang.shop.domain.delivery.Delivery;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -9,20 +9,23 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "shop_product")
 @Getter
-public class Order {
+@Setter
+public class Product {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_ID")
     private Long id;
-    private int orderPrice;
+
+    @Column(length = 100)
+    private String productName;
+    private int productPrice;
+    private int productStockQuantity;
 
     @ManyToOne(fetch = LAZY, cascade = ALL)
+    @JoinColumn(name = "STORE_ID")
     private Store store;
-
-    @OneToOne(fetch = LAZY, cascade = ALL)
-    private Delivery delivery;
-
 
 
 }

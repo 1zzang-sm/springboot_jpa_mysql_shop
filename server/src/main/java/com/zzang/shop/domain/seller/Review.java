@@ -1,4 +1,4 @@
-package com.zzang.shop.domain;
+package com.zzang.shop.domain.seller;
 
 import lombok.Getter;
 
@@ -8,19 +8,21 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
+@Table(name = "shop_review")
 @Getter
-public class Product {
+public class Review {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "REVIEW_ID")
     private Long id;
 
     @Column(length = 100)
-    private String productName;
-
-    private int productPrice;
-    private int productStockQuantity;
+    private String reviewTitle;
+    @Column(length = 2000)
+    private String reviewContent;
+    private int reviewStar;
 
     @ManyToOne(fetch = LAZY, cascade = ALL)
+    @JoinColumn(name = "STORE_ID")
     private Store store;
-
 }

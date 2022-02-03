@@ -1,24 +1,13 @@
 package com.zzang.shop.domain.common;
 
-import lombok.Getter;
-
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Embeddable
-@Getter
 public class Address {
-
-    private String city;
-    private String street;
-    private String home;
-
-    public Address() {
-    }
-
-    public Address(String city, String street, String home) {
-        this.city = city;
-        this.street = street;
-        this.home = home;
-    }
-
+    private String city; // 지역
+    private String street; // 구/동
+    private String home; // 상세주소
 }

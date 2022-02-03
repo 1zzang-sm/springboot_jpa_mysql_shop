@@ -1,13 +1,10 @@
-package com.zzang.shop.domain;
+package com.zzang.shop.domain.seller;
 
-import com.zzang.shop.domain.member.Member;
-import lombok.AccessLevel;
+import com.zzang.shop.domain.buyer.Order;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +12,13 @@ import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
 @Entity
+@Table(name = "shop_store")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Store {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "STORE_ID")
     private Long id;
 
     @Column(length = 300)
@@ -29,24 +27,18 @@ public class Store {
     private String storeIntroduce;
 
     @OneToOne(fetch = LAZY, cascade = ALL)
-    private Member member;
+    @JoinColumn(name = "SELLER_ID")
+    private Seller seller;
 
     @OneToMany(mappedBy = "store")
-    private List<Order> orderList = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
 
     @OneToMany(mappedBy = "store")
     private List<Review> reviewList = new ArrayList<>();
 
     @OneToMany(mappedBy = "store")
-    private List<Product> productList = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<>();
 
-    public Store(String storeName, String storeIntroduce) {
-        this.storeName = storeName;
-        this.storeIntroduce = storeIntroduce;
-    }
 
-    public void changeMember(Member member) {
-        this.member = member;
-    }
 
 }
