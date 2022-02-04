@@ -34,4 +34,20 @@ public class Order {
     @Embedded
     private Address address;
 
+    //== 연관관계 편의 메서드 ==\\
+    public void addDeliveryWithOrder(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
+
+    public void addBuyerWithOrder(Buyer buyer) {
+        this.buyer = buyer;
+        buyer.getOrderList().add(this);
+    }
+
+    public void addStoreWithOrder(Store store) {
+        this.store = store;
+        store.getOrderList().add(this);
+    }
+
 }

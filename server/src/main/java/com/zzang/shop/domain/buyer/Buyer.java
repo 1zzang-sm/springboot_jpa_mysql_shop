@@ -4,6 +4,7 @@ import com.zzang.shop.domain.buyer.enumeration.Gender;
 import com.zzang.shop.domain.buyer.enumeration.Role;
 import com.zzang.shop.domain.common.Address;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ import static javax.persistence.EnumType.*;
 @Entity
 @Table(name = "shop_buyers")
 @Getter
+@Setter
 public class Buyer {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +45,8 @@ public class Buyer {
 
     @Embedded
     private Address address;
+
+
 
 
 

@@ -1,18 +1,20 @@
 package com.zzang.shop.domain.seller;
 
 import com.zzang.shop.domain.seller.enumeration.Role;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 import static javax.persistence.EnumType.*;
 import static javax.persistence.FetchType.*;
 
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "shop_seller")
 @Getter
 @Setter
+@Builder
 public class Seller {
 
     @Id
@@ -36,4 +38,6 @@ public class Seller {
 
     @OneToOne(mappedBy = "seller", fetch = LAZY)
     private Store store;
+
+
 }

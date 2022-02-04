@@ -25,4 +25,10 @@ public class Review {
     @ManyToOne(fetch = LAZY, cascade = ALL)
     @JoinColumn(name = "STORE_ID")
     private Store store;
+
+    //== 연관관계 편의 메서드 ==\\
+    public void addReviewWithStore(Store store) {
+        this.store = store;
+        store.getReviewList().add(this);
+    }
 }

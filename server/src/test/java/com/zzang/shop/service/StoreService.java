@@ -28,34 +28,24 @@ public class StoreService {
     @Autowired
     private EntityManager em;
 
-    @DisplayName("스토어는 상품을 가질 수 있다.")
+    @DisplayName("seller는 store를 만들 수 있다.")
     @Test
     void addProduct() {
-        Seller seller = new Seller();
-        seller.setSellerId("blosw123");
-        seller.setSellerPassword("password");
-        seller.setSellerEmail("captain1152@naver.com");
-        seller.setSellerTel("010-2206-1152");
-        seller.setSellerUsername("이판매자");
-        seller.setRole(Role.NORMAL);
+        Seller seller = Seller.builder()
+                .sellerId("blosw123")
+                .sellerEmail("captain1152@naver.com")
+                .sellerPassword("abc123")
+                .sellerTel("01022061152")
+                .sellerUsername("이성민")
+                .role(Role.NORMAL)
+                .build();
 
-        Store store = new Store();
-        store.setStoreName("그냥store");
-        store.setStoreIntroduce("안녕하세요");
-        store.setSeller(seller);
-
+        Store store = Store.createdStore(seller, "jpa shop", "introduce..");
         storeRepository.save(store);
-
-        Product product = new Product();
-        product.setProductName("텀블러");
-        product.setProductPrice(20000);
-        product.setProductStockQuantity(10);
-        product.setStore(store);
-        productRepository.save(product);
-
-        System.out.println("product.storename = " + product.getStore().getStoreName());
-//        Product product1 = store.getProductList().get(1);
-//        System.out.println("productList = " + product1.getProductName());
+//        if(!(seller.getStore() == null)){
+//            seller.setRole(Role.NORMAL);
+//        }
+        System.out.println("store = " + store.getSeller().getSellerId());
     }
 
 
